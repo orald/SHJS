@@ -1,42 +1,47 @@
+"use strict";
+
 module.exports = function(grunt) {
 	
 	grunt.initConfig({
-    //	pkg: '<json:package.json>',
-    //	test: {
-	//		files: ['test/**/*.js']
-    //	},
-    	lint: {
-    		files: [/*'grunt.js',*/ 'lib/**/*.js', 'test/**/*.js']
-    	},
-    //	watch: {
-    //		files: '<config:lint.files>',
-    //  		tasks: 'default'
-    //	},
-    	jshint: {
-      		options: {
+		jasmine: {
+			src : 'lib/**/*.js',
+			specs : 'test/**/*.js'
+		},
+		watch: {
+			files: ['<config:jasmine.specs>','lib/**/*js'],
+			tasks: 'jasmine'
+		},
+		lint: {
+			files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
+		},
+		jshint: {
+			options: {
 				curly: true,
-        		eqeqeq: true,
-        		immed: true,
-        		latedef: true,
-        		newcap: true,
-        		noarg: true,
-        		sub: true,
-        		undef: true,
-        		boss: true,
-        		eqnull: true,
-        		node: true
-      		},
-      		globals: {
-        		exports: true
-      		}
-    	},
-		server: {
-		    port: 4444,
-		    base: '.'
-		  }
-  	});
- 
-  // Default task.
-  grunt.registerTask('default', 'lint');
+				eqeqeq: true,
+				immed: true,
+				latedef: true,
+				newcap: true,
+				noarg: true,
+				sub: true,
+				undef: true,
+				boss: true,
+				eqnull: true,
+				node: true
+			},
+			globals: {
+				jasmine : false,
+				describe : false,
+				beforeEach : false,
+				expect : false,
+				it : false,
+				spyOn : false,
+				SH: false
+			}
+		}
+	});
+
+	grunt.loadNpmTasks('grunt-jasmine-runner');
+  // Default task.	
+	grunt.registerTask('default', 'lint jasmine');
 
 };
