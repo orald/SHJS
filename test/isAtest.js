@@ -8,7 +8,7 @@ describe("Is A test!", function() {
 	});
 	
 	it("isNumericFalsy", function() {
-		Falsy = ['D','XS','/','-',{},undefined,''];
+		Falsy = ['D','XS','/','-',{},undefined,'', null];
 		
 		for(var i in Falsy){
 			expect(SH.isNumeric(Falsy[i])).toBe(false);
@@ -24,12 +24,8 @@ describe("Is A test!", function() {
 	});
 	
 	it("isPrimitiveFalsy", function() {
-		var n = new String(),
-			r = new RegExp(),
-			d = new Date(),
-			b = new Boolean();
 			
-		Falsy = [{}, [], n, r, d, b];		
+		Falsy = [{}, []];		
 		for(var i in Falsy){
 			expect(SH.isPrimitive(Falsy[i])).toBe(false);
 		}
@@ -41,6 +37,42 @@ describe("Is A test!", function() {
 		for(var j in Truthy){
 			expect(SH.isPrimitive(Truthy[j])).toBe(true);		
 		}
+	});
+	
+	it("isIntegerTruthy", function() {
+		var ints = [0, -1, 1, 23412, -23412, -32345454545454];
+		
+		for(var j in ints){
+			expect(SH.isInteger(ints[j])).toBe(true);		
+		}
+	});
+	
+	it("isFloatTruthy", function() {
+		var ints = [-1.5, 1.01, 2341.200, -3.2345454545454];
+		
+		for(var j in ints){
+			expect(SH.isFloat(ints[j])).toBe(true);		
+		}
+	});
+	
+	it("isNegZero", function() {
+		var v = -0;
+		expect(SH.isNegZero(v)).toBe(true);		
+	});
+	
+	it('PickTest', function(){
+		var result = SH.pick({a:1, b:2, c:3}, 'a', 'b');
+		expect(result).toEqual({a:1, b:2});
+		var Obj = function(){};
+		Obj.prototype = {a: 1, b: 2, c: 3};
+		expect(SH.pick(new Obj(), 'a', 'c')).toEqual({a:1, c: 3});	
+	});
+	it('OmitTest', function(){
+		var result = SH.omit({a:1, b:2, c:3}, 'a', 'b');
+		expect(result).toEqual({c:3});
+		var Obj = function(){};
+		Obj.prototype = {a: 1, b: 2, c: 3};
+		expect(SH.omit(new Obj(), 'a')).toEqual({b:2, c: 3});	
 	});
 	
 });
