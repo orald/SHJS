@@ -67,12 +67,27 @@ describe("Is A test!", function() {
 		Obj.prototype = {a: 1, b: 2, c: 3};
 		expect(SH.pick(new Obj(), 'a', 'c')).toEqual({a:1, c: 3});	
 	});
+	
 	it('OmitTest', function(){
 		var result = SH.omit({a:1, b:2, c:3}, 'a', 'b');
 		expect(result).toEqual({c:3});
 		var Obj = function(){};
 		Obj.prototype = {a: 1, b: 2, c: 3};
 		expect(SH.omit(new Obj(), 'a')).toEqual({b:2, c: 3});	
+	});
+	
+	it('FunctionInvokeTest', function(){
+		var list = [[5, 1, 7], [3, 2, 1]];
+		var result = SH.invoke(list, 'sort');
+		expect(result[0].join(', ')).toEqual('1, 5, 7');
+		expect(result[1].join(', ')).toEqual('1, 2, 3');
+	});
+	
+	it('ArrayIntersection', function(){
+		var arr1 = [1,2,3,4,5,1,5];
+		var arr2 = [2,3,7,8,1];
+		var result = SH.intersection(arr1, arr2);
+		expect(result.join(', ')).toEqual('1, 2, 3');
 	});
 	
 });
