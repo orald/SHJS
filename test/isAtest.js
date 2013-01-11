@@ -90,5 +90,11 @@ describe("Is A test!", function() {
 		expect(result.join(', ')).toEqual('1, 2, 3');
 	});
 	
+	it('CollectionReject', function(){
+		var context = 'obj';
+		var evens = SH.reject([1,2,3,4,5,6], function(num){expect(context).toEqual('obj'); return num % 2 !== 0;}, context);
+		expect(evens.join(', ')).toEqual('2, 4, 6');	
+	});
+	
 });
 
