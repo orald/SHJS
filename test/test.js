@@ -111,7 +111,6 @@ describe("Is A test!", function() {
 	});
 
 	it('AfterFunction', function(){
-
 		var testAfter = function(afterAmount, timesCalled) {
 			var afterCalled = 0, after = SH.after(afterAmount, function() {
 				afterCalled++;
@@ -126,7 +125,6 @@ describe("Is A test!", function() {
 		expect(testAfter(5, 5)).toEqual(1);	
 		expect(testAfter(0, 0)).toEqual(1);
 		expect(testAfter(5, 4)).toEqual(0);
-
 	});
 
 });
