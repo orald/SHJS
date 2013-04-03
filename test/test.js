@@ -1,14 +1,12 @@
-"use strict";
+describe("Is A test!", function() {	
+	"use strict";
 
-describe("Is A test!", function() {
-	var Falsy, Truthy;
-	
 	beforeEach(function() {
 
 	});
 	
 	it("isNumericFalsy", function() {
-		Falsy = ['D','XS','/','-',{},undefined,'', null];
+		var Falsy = ['D','XS','/','-',{},undefined,'', null];
 		
 		for(var i in Falsy){
 			expect(SH.isNumeric(Falsy[i])).toBe(false);
@@ -16,7 +14,7 @@ describe("Is A test!", function() {
 	});
 	
 	it("isNumericTruthy", function() {
-		Truthy = ['-1', '0', '0.5', '0.000000001', '100000000'];
+		var Truthy = ['-1', '0', '0.5', '0.000000001', '100000000'];
 				
 		for(var j in Truthy){
 			expect(SH.isNumeric(Truthy[j])).toBe(true);		
@@ -24,15 +22,15 @@ describe("Is A test!", function() {
 	});
 	
 	it("isPrimitiveFalsy", function() {
-			
-		Falsy = [{}, []];		
+		var Falsy = [{}, []];	
+
 		for(var i in Falsy){
 			expect(SH.isPrimitive(Falsy[i])).toBe(false);
 		}
 	});
 	
 	it("isPrimitiveTruthy", function() {
-		Truthy = [undefined, false, true, 0, '1', -1, '', null];
+		var Truthy = [undefined, false, true, 0, '1', -1, '', null];
 		
 		for(var j in Truthy){
 			expect(SH.isPrimitive(Truthy[j])).toBe(true);		
