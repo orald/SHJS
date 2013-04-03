@@ -5,81 +5,16 @@
 (function(window){
 	"use strict";
 	
-	var root = window,		
-		// Credits to abozhilov
-		//PROTO_SUPPORT = 'proto__obj' in {__proto__ : {'proto__obj' : 1}},
-		PRIMITIVES = {
-			string : 1,
-			number : 1,
-			undefined : 1,
-			boolean : 1
-		},
-		previousSH = window.SH,
-		SH = root.SH = {};
+	var root = window,			
+	previousSH = window.SH,
+	SH = root.SH = {};
 	
 	// current version
 	SH.VERSION = "0.0.1";	
-		
-	SH._Core = { 
-		'_2String' : Object.prototype.toString
-	},	
 	
-	SH._C2Type = {
-		"[object Array]" : "array",
-		"[object Boolean]" : "boolean",
-		"[object Date]" : "date",		
-		"[object Function]" : "function",
-		"[object Number]" : "number",
-		"[object Object]" : "object",
-		"[object RegExp]" : "regexp",			
-		"[object String]" : "string"
-	},
-
 	SH.noConflict = function() {
 		root.SH = previousSH;
 		return this;
-	};
-
-	// return format is string
-	SH.typeOF = function(v){
-		return v === null?String(v):SH._C2Type[SH._Core._2String.call(v)] || typeof v;
-	};
-
-	SH.isPrimitive = function(v){
-		return typeof v in PRIMITIVES || !v;
-	};
-
-	SH.isNumeric = function(v){
-		return !isNaN(parseFloat(v)) && isFinite(v);
-	};
-	
-	SH.isInteger = function(v){
-		return SH.typeOF(v) === 'number' && v % 1 === 0;
-	};
-	
-	SH.isFloat = function(v){
-		return !isNaN(parseFloat(v)) && v % 1 !== 0;
-	};
-	
-	SH.isObject = function(v){
-		return v === Object(v);
-	};
-	
-	SH.isFunction = function(v){
-		return typeof v === 'function';
-	};
-	
-	SH.isNegZero = function(v){
-		// return v === 0 && 1/v === -Infinity;
-		
-		if (v !== 0){
-			return false;
-		}
-		var obj = Object.freeze({z:-0});
-		try {
-			Object.defineProperty(obj, 'z', {value:v});
-		} catch (e) {return false;}
-		return true;
 	};
 	
 	// implementation of UnderscoreJS _pick
@@ -110,7 +45,7 @@
 	// implementation of UnderscoreJS _invoke
 	SH.invoke = function(list, fn){
 		var args = [].slice.call(arguments, 2);
-		var isF = SH.isFunction(fn);
+		var isF = is.Function(fn);
 		return list.map(function(value){
 			return (isF ? fn : value[fn]).apply(value, args);
 		});
@@ -158,7 +93,6 @@
 			[].push.apply(args, arguments);
 			return wrapper.apply(this, args);
 		};
-
 	};
 
 	//implementation of UnderscoreJS after function
@@ -184,3 +118,5 @@
 	}
 
 })(this);
+;/*! is 03-04-2013 */
+(function(e){"use strict";var t=e,n={string:1,number:1,undefined:1,"boolean":1},r=e.is,o=t.is={};o.VERSION="0.0.1",o._Core={_2String:Object.prototype.toString},o._C2Type={"[object Array]":"array","[object Boolean]":"boolean","[object Date]":"date","[object Function]":"function","[object Number]":"number","[object Object]":"object","[object RegExp]":"regexp","[object String]":"string"},o.noConflict=function(){return t.is=r,this},o.typeOF=function(e){return null===e?e+"":o._C2Type[o._Core._2String.call(e)]||typeof e},o.Boolean=function(e){return"boolean"===o.typeOF(e)},o.Primitive=function(e){return typeof e in n||!e},o.Numeric=function(e){return!isNaN(parseFloat(e))&&isFinite(e)},o.Integer=function(e){return"number"===o.typeOF(e)&&0===e%1},o.Float=function(e){return!isNaN(parseFloat(e))&&0!==e%1},o.Object=function(e){return e===Object(e)},o.Array=function(e){return null===e?!1:"array"===o.typeOF(e)},o.Function=function(e){return"function"==typeof e},o.NegZero=function(e){if(0!==e)return!1;var t=Object.freeze({z:-0});try{Object.defineProperty(t,"z",{value:e})}catch(n){return!1}return!0},"undefined"!=typeof exports?("undefined"!=typeof module&&module.exports&&(exports=module.exports=o),exports.is=o):t.is=o})(this);

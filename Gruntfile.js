@@ -13,13 +13,13 @@ module.exports = function(grunt) {
       }
     },
     jasmine: {
-      src: 'lib/**/*.js',
+      src: ['src/**/*.js', 'lib/**/*.js'],
       options: {
         specs: 'test/**/*.js'
       }
     },
     jshint: {
-      all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
+      all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
       options: {
         // options here to override JSHint defaults
         globals: {
