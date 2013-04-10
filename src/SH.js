@@ -6,7 +6,9 @@
 	"use strict";
 	
 	var root = window,			
+	AP = Array.prototype,
 	previousSH = window.SH,
+
 	SH = root.SH = {};
 	
 	// current version
@@ -15,8 +17,14 @@
 	SH.noConflict = function() {
 		root.SH = previousSH;
 		return this;
-	};
-	
+	},
+
+	SH.indexOf = AP.indexOf,
+
+	SH.every = AP.every,
+
+	SH.some = AP.some,
+
 	// implementation of UnderscoreJS _pick
 	SH.pick = function(obj){
 		var newobj = {}, 
@@ -28,7 +36,7 @@
 			}
 		}
 		return newobj;
-	};
+	},
 
 	// implementation of UnderscoreJS _omit
 	SH.omit = function(obj){
@@ -40,7 +48,7 @@
 			}
 		}
 		return newobj;
-	};
+	},
 	
 	// implementation of UnderscoreJS _invoke
 	SH.invoke = function(list, fn){
@@ -49,7 +57,7 @@
 		return list.map(function(value){
 			return (isF ? fn : value[fn]).apply(value, args);
 		});
-	};
+	},
 
 	// implementation of UnderscoreJS _intersection
 	SH.intersection = function(base){
@@ -76,14 +84,14 @@
 			});
 			return uniq;			
 		}
-	};
+	},
 	
 	// implementation of UnderscoreJS _reject
 	SH.reject = function(list, fn, context){
 		return list.filter(function(element, index, array){
 			return !fn.call(context, element, index, array);
 		}, context);
-	};
+	},
 
 	//implementation of UnderscoreJS wrap function
 	SH.wrap = function(func, wrapper){
@@ -93,7 +101,7 @@
 			[].push.apply(args, arguments);
 			return wrapper.apply(this, args);
 		};
-	};
+	},
 
 	//implementation of UnderscoreJS after function
 	SH.after = function(count, afterfn){

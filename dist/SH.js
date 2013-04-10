@@ -6,7 +6,9 @@
 	"use strict";
 	
 	var root = window,			
+	AP = Array.prototype,
 	previousSH = window.SH,
+
 	SH = root.SH = {};
 	
 	// current version
@@ -15,8 +17,14 @@
 	SH.noConflict = function() {
 		root.SH = previousSH;
 		return this;
-	};
-	
+	},
+
+	SH.indexOf = AP.indexOf,
+
+	SH.every = AP.every,
+
+	SH.some = AP.some,
+
 	// implementation of UnderscoreJS _pick
 	SH.pick = function(obj){
 		var newobj = {}, 
@@ -28,7 +36,7 @@
 			}
 		}
 		return newobj;
-	};
+	},
 
 	// implementation of UnderscoreJS _omit
 	SH.omit = function(obj){
@@ -40,7 +48,7 @@
 			}
 		}
 		return newobj;
-	};
+	},
 	
 	// implementation of UnderscoreJS _invoke
 	SH.invoke = function(list, fn){
@@ -49,7 +57,7 @@
 		return list.map(function(value){
 			return (isF ? fn : value[fn]).apply(value, args);
 		});
-	};
+	},
 
 	// implementation of UnderscoreJS _intersection
 	SH.intersection = function(base){
@@ -76,14 +84,14 @@
 			});
 			return uniq;			
 		}
-	};
+	},
 	
 	// implementation of UnderscoreJS _reject
 	SH.reject = function(list, fn, context){
 		return list.filter(function(element, index, array){
 			return !fn.call(context, element, index, array);
 		}, context);
-	};
+	},
 
 	//implementation of UnderscoreJS wrap function
 	SH.wrap = function(func, wrapper){
@@ -93,7 +101,7 @@
 			[].push.apply(args, arguments);
 			return wrapper.apply(this, args);
 		};
-	};
+	},
 
 	//implementation of UnderscoreJS after function
 	SH.after = function(count, afterfn){
@@ -118,5 +126,3 @@
 	}
 
 })(this);
-;/*! is 03-04-2013 */
-(function(e){"use strict";var t=e,n={string:1,number:1,undefined:1,"boolean":1},r=e.is,o=t.is={};o.VERSION="0.0.1",o._Core={_2String:Object.prototype.toString},o._C2Type={"[object Array]":"array","[object Boolean]":"boolean","[object Date]":"date","[object Function]":"function","[object Number]":"number","[object Object]":"object","[object RegExp]":"regexp","[object String]":"string"},o.noConflict=function(){return t.is=r,this},o.typeOF=function(e){return null===e?e+"":o._C2Type[o._Core._2String.call(e)]||typeof e},o.Boolean=function(e){return"boolean"===o.typeOF(e)},o.Primitive=function(e){return typeof e in n||!e},o.Numeric=function(e){return!isNaN(parseFloat(e))&&isFinite(e)},o.Integer=function(e){return"number"===o.typeOF(e)&&0===e%1},o.Float=function(e){return!isNaN(parseFloat(e))&&0!==e%1},o.Object=function(e){return e===Object(e)},o.Array=function(e){return null===e?!1:"array"===o.typeOF(e)},o.Function=function(e){return"function"==typeof e},o.NegZero=function(e){if(0!==e)return!1;var t=Object.freeze({z:-0});try{Object.defineProperty(t,"z",{value:e})}catch(n){return!1}return!0},"undefined"!=typeof exports?("undefined"!=typeof module&&module.exports&&(exports=module.exports=o),exports.is=o):t.is=o})(this);
